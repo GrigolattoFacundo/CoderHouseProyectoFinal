@@ -5,23 +5,50 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 2f;
-    public CharacterController player;
-    private Vector3 fallSpeed;
-    private float gravity = -9.81f;
-    public Transform floorCol;
     public float distanceToFloor = 0.3f;
-    public LayerMask floorMask;
-    private bool onFloor;
+    private float gravity = -9.81f;
     private float jump = 1.5f;
+    private bool onFloor;
+    public bool isDead;
+
+    private Vector3 fallSpeed;
+    public LayerMask floorMask;
+
+    public CharacterController player;
+    public Transform floorCol;
     public GameManager manager;
-    
+    public GameObject crosshair;
+    public GameObject deadText;
+
+
+    private void Start()
+    {
+        isDead = false;
+        transform.position = new Vector3(0, 1, 0);
+    }
+
     void Update()
     {
         Gravity();
-        if (manager.playerIsDead == false)
+        if (isDead == false)
         {
             Movement();
+            AliveUI();
         }
+        if (isDead == true)
+        {
+            DeadUI();
+        }
+    }
+    void DeadUI()
+    { 
+        crosshair.SetActive(false);
+        deadText.SetActive(true);
+    }
+    void AliveUI()
+    {
+        crosshair.SetActive(true);
+        deadText.SetActive(false);
     }
 
     void Movement()

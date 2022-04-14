@@ -2,37 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
-    public bool playerIsDead;
-    public GameObject Crosshair;
-    public GameObject deadText;
+    public static GameManager instance;
+    public AudioSource audioSource;
     //private int amountOfZombies;
+    //public Zombie zombieInstance;
     //public GameObject zombie;
 
-    private void Start()
+    private void Awake()
     {
-        playerIsDead = false;
-        Crosshair.SetActive(true);
-        deadText.SetActive(false);
+        if(GameManager.instance == null)
+        {
+            GameManager.instance = this;
+            DontDestroyOnLoad(gameObject);
+            audioSource = GetComponent<AudioSource>();
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     private void Update()
     {
-        /*if (amountOfZombies > 2)
-        {
-            Instantiate(zombie);
-        }*/
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
         }
-        if (playerIsDead == true)
+        /*if (amountOfZombies >= 2)
         {
-            Crosshair.SetActive(false);
-            deadText.SetActive(true);
-        }
+            Instantiate(zombie);
+            amountOfZombies ++;
+        }*/
+        
     }
-
 }
