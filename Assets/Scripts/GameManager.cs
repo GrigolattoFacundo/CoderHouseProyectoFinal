@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,12 +26,16 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void Play()
+    {
+        SceneManager.LoadScene(1);
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
         /*if (amountOfZombies >= 2)
         {

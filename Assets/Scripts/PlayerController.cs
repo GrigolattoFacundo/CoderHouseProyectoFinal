@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 2f;
-    public float distanceToFloor = 0.3f;
+    public float distanceToFloor = 0.2f;
     private float gravity = -9.81f;
     private float jump = 1.5f;
     private bool onFloor;
@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
 
     public CharacterController player;
     public Transform floorCol;
-    public GameManager manager;
     public GameObject crosshair;
     public GameObject deadText;
 
@@ -71,6 +70,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && onFloor)
         {
+            
             fallSpeed.y = Mathf.Sqrt(jump * -2 * gravity);
         }
     }
@@ -78,9 +78,10 @@ public class PlayerController : MonoBehaviour
     {
         
         onFloor = Physics.CheckSphere(floorCol.position, distanceToFloor, floorMask);
-        if (onFloor && fallSpeed.y < 0)
+        if (onFloor == true && fallSpeed.y < 0)
         {
             fallSpeed.y = -1;
+
         }
         fallSpeed.y += gravity * Time.deltaTime;
         player.Move(fallSpeed * Time.deltaTime);

@@ -6,24 +6,33 @@ public class Zombie : MonoBehaviour
 {
     public float distanceToPlayer;
     public float speed = 1f;
-    private Animator animator;
-    public bool alive;
-    public GameManager manager;
     public float timeToEscape = 1f;
+    public bool alive;
+    private bool onFloor;
+    private float gravity = -9.81f;
+    public float distanceToFloor = 0.2f;
+    private Vector3 fallSpeed;
+    public LayerMask floorMask;
+    private Animator animator;
+    public GameManager manager;
+    public PlayerController playerScript;
     public GameObject rayPoint;
     public GameObject player;
-    public PlayerController playerScript;
-    
+    public Transform floorCol;
+    public CharacterController zom;
+
     void Start()
     {
         animator = GetComponent<Animator>();
         animator.SetBool("isClose", false);
         alive = true;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
    
     void Update()
     {
+        Gravity();
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         if (alive == true && distanceToPlayer > 1.5f)
@@ -82,5 +91,17 @@ public class Zombie : MonoBehaviour
         {
             playerScript.isDead = true;
         }
+    }
+    void Gravity()
+    {
+
+        onFloor = Physics.CheckSphere(floorCol.position, distanceToFloor, floorMask);
+        if (onFloor == true && fallSpeed.y < 0)
+        {
+            fallSpeed.y = -1;
+
+        }
+        fallSpeed.y += gravity * Time.deltaTime;
+        zom.Move(fallSpeed * Time.deltaTime);
     }
 }
