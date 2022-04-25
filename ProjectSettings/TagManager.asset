@@ -8,6 +8,8 @@ TagManager:
   - head
   - Zombie
   - Obstacle
+  - deadText
+  - pauseMenu
   layers:
   - Default
   - TransparentFX

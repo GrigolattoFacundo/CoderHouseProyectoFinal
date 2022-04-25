@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zombie : MonoBehaviour
+public class Zombie : LevelManager
 {
     public float distanceToPlayer;
     public float speed = 1f;
@@ -89,7 +89,7 @@ public class Zombie : MonoBehaviour
         timeToEscape -= Time.deltaTime;
         if (timeToEscape < 0 && distanceToPlayer < 2f)
         {
-            playerScript.isDead = true;
+            playerIsDead = true;
         }
     }
     void Gravity()

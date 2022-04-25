@@ -25,5 +25,14 @@ public class MouseView : MonoBehaviour
         cameraRotation -= mouseY * (sensitivity / 40);
         cameraRotation = Mathf.Clamp(cameraRotation, -90f, 90f);
         transform.localRotation = Quaternion.Euler(cameraRotation, 0, 0);
+
+        if (GameManager.paused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }

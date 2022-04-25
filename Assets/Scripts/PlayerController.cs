@@ -1,54 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : LevelManager
 {
     public float speed = 2f;
     public float distanceToFloor = 0.2f;
     private float gravity = -9.81f;
     private float jump = 1.5f;
     private bool onFloor;
-    public bool isDead;
-
+    
+    
     private Vector3 fallSpeed;
     public LayerMask floorMask;
 
     public CharacterController player;
     public Transform floorCol;
-    public GameObject crosshair;
-    public GameObject deadText;
+    public GameManager gameManager;
+    public LevelManager levelManager;
 
-
+   
     private void Start()
     {
-        isDead = false;
+        playerIsDead = false;
         transform.position = new Vector3(0, 1, 0);
     }
 
     void Update()
     {
         Gravity();
-        if (isDead == false)
+        if (!playerIsDead)
         {
             Movement();
-            AliveUI();
         }
-        if (isDead == true)
+        if (playerIsDead)
         {
-            DeadUI();
+            Cursor.lockState = CursorLockMode.None;
         }
     }
-    void DeadUI()
-    { 
-        crosshair.SetActive(false);
-        deadText.SetActive(true);
-    }
-    void AliveUI()
-    {
-        crosshair.SetActive(true);
-        deadText.SetActive(false);
-    }
+    
 
     void Movement()
     {

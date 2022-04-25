@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     //private int amountOfZombies;
     //public Zombie zombieInstance;
     //public GameObject zombie;
+    public static bool paused;
 
     private void Awake()
     {
@@ -30,12 +31,43 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void Pause()
+    {
+        paused = true;
+        Time.timeScale = 0f;
+    }
+
+    public void Unpause()
+    {
+        paused = false;
+        Time.timeScale = 1f;
+    }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!paused)
+            {
+                Pause();
+            }
+            else if(paused)
+            {
+                Unpause();
+            }
+        }
+            
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(1);
+            Play();
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            MainMenu();
         }
         /*if (amountOfZombies >= 2)
         {
