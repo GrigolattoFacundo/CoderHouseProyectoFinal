@@ -14,8 +14,6 @@ public class MouseView : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        //mouseX = 960f;
-        //mouseY = 540f;
     }
     void Update()
     {

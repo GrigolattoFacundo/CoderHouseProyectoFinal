@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     }
     public void MainMenu()
     {
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(0);
     }
     public void Pause()
