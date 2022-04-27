@@ -2012,6 +2012,7 @@ MonoBehaviour:
   floorCol: {fileID: 2321121337637034235}
   zom: {fileID: 1337531756098516000}
   config: {fileID: 11400000, guid: 2eb9cef603705d24599626efd1e41daf, type: 2}
+  config2: {fileID: 11400000, guid: 36b1f1c847c313442b630c420de5a2ec, type: 2}
 --- !u!143 &1337531756098516000
 CharacterController:
   m_ObjectHideFlags: 0

@@ -22,13 +22,28 @@ public class Zombie : LevelManager
     public CharacterController zom;
 
     public ZombieScriptableObject config;
+    public ZombieScriptableObject config2;
     private GameObject player;
 
     private void Awake()
     {
-        speed = config.speed;
-        timeToEscape = config.timeToEscape;
-        stoppingDistance = config.stoppingDistance;
+        int rand = Random.Range(0, 2);
+        if (rand == 0)
+        {
+            speed = config.speed;
+            timeToEscape = config.timeToEscape;
+            stoppingDistance = config.stoppingDistance;
+        }
+        if (rand == 1)
+        {
+            speed = config2.speed;
+            timeToEscape = config2.timeToEscape;
+            stoppingDistance = config2.stoppingDistance;
+        }
+
+        //if (crosshair = null) { }
+        //if (deadText = null) { }
+        //if (pauseMenu = null) { }
     }
     void Start()
     {

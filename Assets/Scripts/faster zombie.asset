@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8d8951e1340da940a4935b388c1a779, type: 3}
-  m_Name: zombie config
+  m_Name: faster zombie
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 4
   timeToEscape: 1
-  stoppingDistance: 1
+  stoppingDistance: 0.5
