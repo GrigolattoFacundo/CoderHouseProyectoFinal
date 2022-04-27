@@ -9,9 +9,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public AudioSource audioSource;
-    //private int amountOfZombies;
-    //public Zombie zombieInstance;
-    //public GameObject zombie;
     public static bool paused;
 
     private void Awake()
@@ -30,6 +27,7 @@ public class GameManager : MonoBehaviour
     public void Play()
     {
         SceneManager.LoadScene(1);
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public void MainMenu()
     {
@@ -70,11 +68,7 @@ public class GameManager : MonoBehaviour
         {
             MainMenu();
         }
-        /*if (amountOfZombies >= 2)
-        {
-            Instantiate(zombie);
-            amountOfZombies ++;
-        }*/
+        
         
     }
 }

@@ -72,7 +72,6 @@ public class PlayerController : LevelManager
         if (onFloor == true && fallSpeed.y < 0)
         {
             fallSpeed.y = -1;
-
         }
         fallSpeed.y += gravity * Time.deltaTime;
         player.Move(fallSpeed * Time.deltaTime);

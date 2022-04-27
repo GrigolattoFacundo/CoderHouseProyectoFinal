@@ -5,8 +5,9 @@ using UnityEngine;
 public class Zombie : LevelManager
 {
     public float distanceToPlayer;
-    public float speed = 1f;
-    public float timeToEscape = 1f;
+    private float speed;
+    private float timeToEscape;
+    private float stoppingDistance;
     public bool alive;
     private bool onFloor;
     private float gravity = -9.81f;
@@ -17,16 +18,24 @@ public class Zombie : LevelManager
     public GameManager manager;
     public PlayerController playerScript;
     public GameObject rayPoint;
-    public GameObject player;
     public Transform floorCol;
     public CharacterController zom;
 
+    public ZombieScriptableObject config;
+    private GameObject player;
+
+    private void Awake()
+    {
+        speed = config.speed;
+        timeToEscape = config.timeToEscape;
+        stoppingDistance = config.stoppingDistance;
+    }
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
         animator.SetBool("isClose", false);
         alive = true;
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
    
@@ -35,7 +44,7 @@ public class Zombie : LevelManager
         Gravity();
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        if (alive == true && distanceToPlayer > 1.5f)
+        if (alive == true && distanceToPlayer > stoppingDistance)
         {
             /*RaycastHit lookingAtPlayer;
             if (Physics.Raycast(rayPoint.transform.position, rayPoint.transform.forward, out lookingAtPlayer))
@@ -58,7 +67,7 @@ public class Zombie : LevelManager
             animator.SetBool("isClose", false);
 
         }
-        else if (alive == true && distanceToPlayer < 1.5f)
+        else if (alive == true && distanceToPlayer < stoppingDistance)
         {
             animator.SetBool("isClose", true);
             Attack();
@@ -66,9 +75,12 @@ public class Zombie : LevelManager
         }
         else if (alive == false)
         {
-            animator.SetBool("alive", false);
-            Destroy(gameObject, 10);
-
+            for (int i = 0; i < 1; i++)
+            {
+                animator.SetBool("alive", false);
+                LevelManager.amountOfZombies--;
+                Destroy(gameObject, 1);
+            }
         }
     }
     void Movement()

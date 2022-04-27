@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
-  - head
   - Zombie
   - Obstacle
   - deadText
   - pauseMenu
+  - Head
+  - head
   layers:
   - Default
   - TransparentFX

@@ -8,9 +8,15 @@ public class LevelManager : MonoBehaviour
     public GameObject deadText;
     public GameObject pauseMenu;
 
+    public static int amountOfZombies;
+    private int maxAmountOfZombies;
+    public GameObject zombie;
+    //private GameObject[] zombieInstance;
 
     private void Start()
     {
+        amountOfZombies = 0;
+        maxAmountOfZombies = 2;
         GameManager.paused = false;
     }
     private void Update()
@@ -27,6 +33,12 @@ public class LevelManager : MonoBehaviour
         if (GameManager.paused)
         {
             PausedUI();
+        }
+
+        if (amountOfZombies <= maxAmountOfZombies)
+        {
+            GameObject zombieInstance = Instantiate(zombie, new Vector3 (Random.Range(-20, 20), 1, Random.Range(-20, 20)), Quaternion.identity);
+            amountOfZombies++; //instancia bocha de zombies en vez de uno, tengo que corregir esto
         }
     }
     void PausedUI()

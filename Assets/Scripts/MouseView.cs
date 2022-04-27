@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MouseView : MonoBehaviour
 {
@@ -11,10 +12,6 @@ public class MouseView : MonoBehaviour
     private float mouseY;
         
 
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
     void Update()
     {
         mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
@@ -24,13 +21,24 @@ public class MouseView : MonoBehaviour
         cameraRotation = Mathf.Clamp(cameraRotation, -90f, 90f);
         transform.localRotation = Quaternion.Euler(cameraRotation, 0, 0);
 
-        if (GameManager.paused)
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+        
+            if (GameManager.paused)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else if (LevelManager.playerIsDead)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        
+        
+    }
+    private void OnDestroy()
+    {
+        Cursor.lockState= CursorLockMode.None;
     }
 }

@@ -13,7 +13,7 @@ public class ShootingSystem : MonoBehaviour
     void Start()
     {
         GameObject Enemy = GameObject.FindGameObjectWithTag("Zombie");
-        zom = Enemy.GetComponent<Zombie>();
+        //zom = Enemy.GetComponent<Zombie>();
     }
     void Update()
     {
@@ -29,11 +29,17 @@ public class ShootingSystem : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit))
         {
-            if (hit.transform.name == "Head")
+            
+            if (hit.collider.name == "Head")
             {
-                zom.alive = false;
+                zom = hit.transform.GetComponentInParent<Zombie>();
+                
+                if (zom != null)
+                {
+                    zom.alive = false;
+                }
             }
-            if (hit.transform.name == "Head" || hit.collider.tag == "Zombie")
+            if (hit.collider.tag == "Zombie")
             {
                 GameObject blood = Instantiate(fleshImpact, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(blood, 1f);
