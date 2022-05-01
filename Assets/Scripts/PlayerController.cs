@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PlayerController : LevelManager
 {
@@ -39,7 +40,7 @@ public class PlayerController : LevelManager
             Cursor.lockState = CursorLockMode.None;
         }
     }
-    
+
 
     void Movement()
     {

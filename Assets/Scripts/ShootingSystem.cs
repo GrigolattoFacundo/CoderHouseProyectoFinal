@@ -10,11 +10,6 @@ public class ShootingSystem : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public GameObject fleshImpact;
 
-    void Start()
-    {
-        GameObject Enemy = GameObject.FindGameObjectWithTag("Zombie");
-        //zom = Enemy.GetComponent<Zombie>();
-    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -37,6 +32,7 @@ public class ShootingSystem : MonoBehaviour
                 if (zom != null)
                 {
                     zom.alive = false;
+                    LevelManager.score++;
                 }
             }
             if (hit.collider.tag == "Zombie")

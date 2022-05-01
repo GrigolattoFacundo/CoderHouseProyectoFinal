@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public AudioSource audioSource;
     public static bool paused;
+
+        
 
     private void Awake()
     {
@@ -68,7 +71,5 @@ public class GameManager : MonoBehaviour
         {
             MainMenu();
         }
-        
-        
     }
 }

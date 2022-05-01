@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class LevelManager : MonoBehaviour
 {
@@ -9,18 +10,24 @@ public class LevelManager : MonoBehaviour
     public GameObject pauseMenu;
 
     public static int amountOfZombies;
-    private int maxAmountOfZombies;
+    public static int maxAmountOfZombies;
     public GameObject zombie;
+    public static int score;
     //private GameObject[] zombieInstance;
+
 
     private void Start()
     {
         amountOfZombies = 0;
-        maxAmountOfZombies = 2;
+        maxAmountOfZombies = 3;
         GameManager.paused = false;
+        SpawnZombies();
+        score = 0;
+
+        Zombie.zombieDied += SpawnZombies;                          //acá suscribo al evento
     }
     private void Update()
-    { 
+    {
         if (!playerIsDead)
         {
             if (!GameManager.paused) { AliveUI(); }
@@ -34,12 +41,22 @@ public class LevelManager : MonoBehaviour
         {
             PausedUI();
         }
-
-        if (amountOfZombies <= maxAmountOfZombies)
+        
+        if(amountOfZombies <= maxAmountOfZombies)
         {
-            GameObject zombieInstance = Instantiate(zombie, new Vector3 (Random.Range(-20, 20), 1, Random.Range(-20, 20)), Quaternion.identity);
-            amountOfZombies++; //instancia bocha de zombies en vez de uno, tengo que corregir esto
+            SpawnZombies();
         }
+    }
+
+    void SpawnZombies()
+    {
+        if (amountOfZombies < maxAmountOfZombies)
+            {
+            Instantiate(zombie, new Vector3(UnityEngine.Random.Range(-20, 20), 1, UnityEngine.Random.Range(-20, 20)), Quaternion.identity);
+            Debug.Log(score);
+            amountOfZombies++;
+            Debug.Log("LevelManager ejecutó el método spawnZombie, el cual pudo o no ser llamado por evento");
+            }
     }
     void PausedUI()
     {

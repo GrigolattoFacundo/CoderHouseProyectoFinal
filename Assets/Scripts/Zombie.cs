@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Zombie : LevelManager
@@ -25,9 +26,13 @@ public class Zombie : LevelManager
     public ZombieScriptableObject config2;
     private GameObject player;
 
+    public static event Action zombieDied;                  //acá declaro el evento
+
+    private bool sd;
+
     private void Awake()
     {
-        int rand = Random.Range(0, 2);
+        int rand = UnityEngine.Random.Range(0, 2);
         if (rand == 0)
         {
             speed = config.speed;
@@ -41,9 +46,6 @@ public class Zombie : LevelManager
             stoppingDistance = config2.stoppingDistance;
         }
 
-        //if (crosshair = null) { }
-        //if (deadText = null) { }
-        //if (pauseMenu = null) { }
     }
     void Start()
     {
@@ -51,6 +53,7 @@ public class Zombie : LevelManager
         animator = GetComponent<Animator>();
         animator.SetBool("isClose", false);
         alive = true;
+        sd = false;
     }
 
    
@@ -59,7 +62,9 @@ public class Zombie : LevelManager
         Gravity();
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        if (alive == true && distanceToPlayer > stoppingDistance)
+        
+
+        if (alive && distanceToPlayer > stoppingDistance)
         {
             /*RaycastHit lookingAtPlayer;
             if (Physics.Raycast(rayPoint.transform.position, rayPoint.transform.forward, out lookingAtPlayer))
@@ -74,30 +79,34 @@ public class Zombie : LevelManager
                 else 
                 {
                     Movement();
-                }                                                       //para hacer que esto funcione debidamente tengo que rehacer toda la IA basada en raycast,
-                                                                        //no me va a dar tiempo para la entrega, lo dejo así y lo termino para la próxima xd
+                }                                                       //para hacer que esto funcione debidamente tengo que rehacer toda la IA basada en raycast
             }*/
             Movement();
             timeToEscape = 1f;
             animator.SetBool("isClose", false);
 
         }
-        else if (alive == true && distanceToPlayer < stoppingDistance)
+        else if (alive && distanceToPlayer < stoppingDistance)
         {
             animator.SetBool("isClose", true);
             Attack();
-            
         }
-        else if (alive == false)
+        else if (!alive)
         {
-            for (int i = 0; i < 1; i++)
+            animator.SetBool("alive", false);
+            Destroy(gameObject, 2);
+            
+            if (!sd)
             {
-                animator.SetBool("alive", false);
                 LevelManager.amountOfZombies--;
-                Destroy(gameObject, 1);
+                zombieDied.Invoke();                        //acá llamo el evento
+                score++;
+                sd = true;
+                Debug.Log("un zombie llamó el evento de su muerte para spawnear uno nuevo");
             }
         }
     }
+    
     void Movement()
     {
         Vector3 movementV = transform.forward * speed * Time.deltaTime;
@@ -105,11 +114,6 @@ public class Zombie : LevelManager
         Quaternion movementQ = Quaternion.LookRotation(player.transform.position - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, movementQ, speed * Time.deltaTime);
         Quaternion aim = Quaternion.LookRotation(player.transform.position - transform.position);
-    }
-    void OnlyFrontMovement()
-    {
-        Vector3 movementV = transform.forward * speed * Time.deltaTime;
-        transform.position = transform.position + movementV;
     }
     void Attack()
     {
