@@ -21,6 +21,7 @@ public class Zombie : LevelManager
     public GameObject rayPoint;
     public Transform floorCol;
     public CharacterController zom;
+    private Vector3 scale;
 
     public ZombieScriptableObject config;
     public ZombieScriptableObject config2;
@@ -38,12 +39,14 @@ public class Zombie : LevelManager
             speed = config.speed;
             timeToEscape = config.timeToEscape;
             stoppingDistance = config.stoppingDistance;
+            scale = new Vector3(config.scale, config.scale, config.scale);
         }
         if (rand == 1)
         {
             speed = config2.speed;
             timeToEscape = config2.timeToEscape;
             stoppingDistance = config2.stoppingDistance;
+            scale = new Vector3(config2.scale, config2.scale, config2.scale);
         }
 
     }
@@ -54,6 +57,7 @@ public class Zombie : LevelManager
         animator.SetBool("isClose", false);
         alive = true;
         sd = false;
+        transform.localScale = scale;
     }
 
    
@@ -62,7 +66,6 @@ public class Zombie : LevelManager
         Gravity();
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        
 
         if (alive && distanceToPlayer > stoppingDistance)
         {

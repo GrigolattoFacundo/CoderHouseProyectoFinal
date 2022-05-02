@@ -5337,6 +5337,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2857773388037984657, guid: 512c4f9213f94cc40a5b8d9a828b7ef1,
+        type: 3}
+      propertyPath: m_StepOffset
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2857773388037984659, guid: 512c4f9213f94cc40a5b8d9a828b7ef1,
         type: 3}
       propertyPath: player

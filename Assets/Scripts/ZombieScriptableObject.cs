@@ -8,5 +8,6 @@ public class ZombieScriptableObject : ScriptableObject
     public float speed;
     public float timeToEscape;
     public float stoppingDistance;
+    public float scale;
 
 }   
