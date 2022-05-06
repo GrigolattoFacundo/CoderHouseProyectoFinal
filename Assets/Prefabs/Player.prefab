@@ -380,7 +380,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2857773387751139739}
-  m_LocalRotation: {x: -0, y: -0.008726558, z: -0, w: 0.999962}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -665,16 +665,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860cd22638776c047bb2bf6c713eeb43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crosshair: {fileID: 0}
+  deadText: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  paused: 0
+  zombie: {fileID: 0}
+  outTime: 0
+  outTimer: {fileID: 0}
+  playerIsOut: 0
   speed: 2
   distanceToFloor: 0.3
-  isDead: 0
   floorMask:
     serializedVersion: 2
     m_Bits: 512
   player: {fileID: 2857773388037984657}
   floorCol: {fileID: 2857773386779236022}
-  crosshair: {fileID: 0}
-  deadText: {fileID: 0}
+  gameManager: {fileID: 0}
+  levelManager: {fileID: 0}
 --- !u!1 &2857773388052287658
 GameObject:
   m_ObjectHideFlags: 0

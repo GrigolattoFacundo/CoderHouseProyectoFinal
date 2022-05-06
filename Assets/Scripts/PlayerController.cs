@@ -12,7 +12,6 @@ public class PlayerController : LevelManager
     private float jump = 1.5f;
     private bool onFloor;
     
-    
     private Vector3 fallSpeed;
     public LayerMask floorMask;
 
@@ -41,6 +40,16 @@ public class PlayerController : LevelManager
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        levelManager.OutOfPlayZone();
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        levelManager.outTime = 5f;
+        levelManager.AliveUI();
+        levelManager.playerIsOut = false;
+    }
 
     void Movement()
     {

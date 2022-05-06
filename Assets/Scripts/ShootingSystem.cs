@@ -9,6 +9,7 @@ public class ShootingSystem : MonoBehaviour
     public Zombie zom;
     public ParticleSystem muzzleFlash;
     public GameObject fleshImpact;
+    //public LevelManager levelManager;
 
     void Update()
     {
@@ -32,7 +33,7 @@ public class ShootingSystem : MonoBehaviour
                 if (zom != null)
                 {
                     zom.alive = false;
-                    LevelManager.score++;
+                    LevelManager.score +=1;     //suma dos en lugar de uno, no sé cómo solucionar esto.
                 }
             }
             if (hit.collider.tag == "Zombie")

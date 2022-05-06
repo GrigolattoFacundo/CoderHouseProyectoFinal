@@ -7,10 +7,7 @@ TagManager:
   - Shootable
   - Zombie
   - Obstacle
-  - deadText
-  - pauseMenu
   - Head
-  - head
   layers:
   - Default
   - TransparentFX

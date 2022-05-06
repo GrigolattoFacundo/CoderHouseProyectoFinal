@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -27,7 +28,7 @@ public class Zombie : LevelManager
     public ZombieScriptableObject config2;
     private GameObject player;
 
-    public static event Action zombieDied;                  //acá declaro el evento
+    public static event Action ZombieDied;                  //acá declaro el evento
 
     private bool sd;
 
@@ -102,7 +103,7 @@ public class Zombie : LevelManager
             if (!sd)
             {
                 LevelManager.amountOfZombies--;
-                zombieDied.Invoke();                        //acá llamo el evento
+                ZombieDied.Invoke();                        //acá llamo el evento
                 score++;
                 sd = true;
                 Debug.Log("un zombie llamó el evento de su muerte para spawnear uno nuevo");
