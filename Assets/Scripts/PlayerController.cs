@@ -24,7 +24,7 @@ public class PlayerController : LevelManager
     private void Start()
     {
         playerIsDead = false;
-        transform.position = new Vector3(0, 1, 0);
+        transform.position = new Vector3(-18, 1, -18);
     }
 
     void Update()
@@ -69,21 +69,25 @@ public class PlayerController : LevelManager
             speed = 2f;
         }
 
-        if (Input.GetButtonDown("Jump") && onFloor)
+        if (Input.GetButtonDown("Jump"))
         {
-            
-            fallSpeed.y = Mathf.Sqrt(jump * -2 * gravity);
+            if (!onFloor)
+                return;
+            else
+            {
+                fallSpeed.y = Mathf.Sqrt(jump * -2 * gravity);
+            }
         }
     }
     void Gravity()
     {
-        
+        fallSpeed.y += gravity * Time.deltaTime;
+        player.Move(fallSpeed * Time.deltaTime);
+
         onFloor = Physics.CheckSphere(floorCol.position, distanceToFloor, floorMask);
-        if (onFloor == true && fallSpeed.y < 0)
+        if (onFloor && fallSpeed.y < 0)
         {
             fallSpeed.y = -1;
         }
-        fallSpeed.y += gravity * Time.deltaTime;
-        player.Move(fallSpeed * Time.deltaTime);
     }
 }

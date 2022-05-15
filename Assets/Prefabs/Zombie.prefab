@@ -1926,8 +1926,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.26305676
-  m_Center: {x: -1.6353701e-33, y: 0.16059875, z: 0.044225693}
+  m_Radius: 0.26306593
+  m_Center: {x: -1.6353701e-33, y: 0.184502, z: 0.044225693}
 --- !u!1 &2626939806356540683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,7 +1999,11 @@ MonoBehaviour:
   crosshair: {fileID: 0}
   deadText: {fileID: 0}
   pauseMenu: {fileID: 0}
+  paused: 0
   zombie: {fileID: 0}
+  outTime: 0
+  outTimer: {fileID: 0}
+  playerIsOut: 0
   distanceToPlayer: 0
   alive: 1
   distanceToFloor: 0.3
