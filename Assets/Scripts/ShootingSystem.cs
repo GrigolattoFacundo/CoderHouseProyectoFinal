@@ -33,7 +33,12 @@ public class ShootingSystem : MonoBehaviour
                 if (zom != null)
                 {
                     zom.alive = false;
-                    LevelManager.score +=1;     //suma dos en lugar de uno, no sé cómo solucionar esto.
+                    LevelManager.score ++;
+
+                    if (LevelManager.score % 10 == 0)
+                    {
+                        LevelManager.maxAmountOfZombies++;
+                    }
                 }
             }
             if (hit.collider.tag == "Zombie")

@@ -1,7 +1,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 public class Zombie : LevelManager
@@ -28,13 +27,11 @@ public class Zombie : LevelManager
     public ZombieScriptableObject config2;
     private GameObject player;
 
-    public static event Action ZombieDied;                  //acá declaro el evento
-
     private bool sd;
 
     private void Awake()
     {
-        int rand = UnityEngine.Random.Range(0, 2);
+        int rand = Random.Range(0, 2);
         if (rand == 0)
         {
             speed = config.speed;
@@ -70,21 +67,6 @@ public class Zombie : LevelManager
 
         if (alive && distanceToPlayer > stoppingDistance)
         {
-            /*RaycastHit lookingAtPlayer;
-            if (Physics.Raycast(rayPoint.transform.position, rayPoint.transform.forward, out lookingAtPlayer))
-            {
-                if (lookingAtPlayer.transform.tag == "Obstacle")
-                {
-                    transform.rotation = new Quaternion (0, 90, 0, 0); //no sé cómo usar quaternion para que rote como yo quiero para esquivar obstáculos xd
-                                                                       //tengo que investigar eso
-                    OnlyFrontMovement();
-                    Debug.Log("detecta obstáculos");
-                }
-                else 
-                {
-                    Movement();
-                }                                                       //para hacer que esto funcione debidamente tengo que rehacer toda la IA basada en raycast
-            }*/
             Movement();
             timeToEscape = 1f;
             animator.SetBool("isClose", false);
@@ -103,10 +85,7 @@ public class Zombie : LevelManager
             if (!sd)
             {
                 LevelManager.amountOfZombies--;
-                ZombieDied.Invoke();                        //acá llamo el evento
-                score++;
                 sd = true;
-                Debug.Log("un zombie llamó el evento de su muerte para spawnear uno nuevo");
             }
         }
     }

@@ -6,22 +6,32 @@ using TMPro;
 public class LevelManager : MonoBehaviour
 {
     public static bool playerIsDead;
-    public Image crosshair;
-    public GameObject deadText;
-    public GameObject pauseMenu;
-    public bool paused;
-
+    public bool playerIsOut;
     public static int amountOfZombies;
     public static int maxAmountOfZombies;
     public GameObject zombie;
+
+    public bool paused;
+
+    public Image crosshair;
+    public GameObject deadText;
+    public GameObject pauseMenu;
+    public GameObject timeOutMenu;
+    public float startingLimitTime;
+    private bool timeOut;
+
     public static int score;
     public float outTime;
+    private float limitTime;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI scoreOnOutScreen;
     public TextMeshProUGUI outTimer;
-    public bool playerIsOut;
+    public TextMeshProUGUI limitTimeText;
 
 
     private void Start()
     {
+        timeOut = false;
         amountOfZombies = 0;
         maxAmountOfZombies = 3;
         GameManager.paused = false;
@@ -29,32 +39,47 @@ public class LevelManager : MonoBehaviour
         score = 0;
         outTime = 5f;
         playerIsOut = false;
-        Zombie.ZombieDied += SpawnZombies;                          //acá suscribo al evento
+        limitTime = startingLimitTime;
+        RestartLimitTime();
     }
     private void Update()
     {
-        if (!playerIsDead)
+        limitTime -= Time.deltaTime;
+        limitTimeText.text = limitTime.ToString("0");
+
+        scoreText.text = score.ToString();
+
+        if (limitTime <= 0)
         {
-            if (!GameManager.paused)
-            {
-                if (!playerIsOut)
-                {
-                    AliveUI();
-                }
-                else if (playerIsOut) { OutUI(); }
-            }
+            RestartLimitTime();
+            timeOut = true;
+            Time.timeScale = 0;
         }
 
+        if (timeOut)
+        {
+            TimeOverUI();
+            return;
+        }
         if (playerIsDead)
         {
-            if (!GameManager.paused) { DeadUI(); }
+            DeadUI();
+            return;
         }
         if (GameManager.paused)
         {
             PausedUI();
+            return;
         }
+        if (playerIsOut)
+        {
+            OutUI();
+            return;
+        }
+        else{ AliveUI(); }
 
-        if (amountOfZombies <= maxAmountOfZombies)
+        
+        if (amountOfZombies < maxAmountOfZombies)
         {
             SpawnZombies();
         }
@@ -67,7 +92,6 @@ public class LevelManager : MonoBehaviour
             Instantiate(zombie, new Vector3(UnityEngine.Random.Range(-20, 20), 1, UnityEngine.Random.Range(-20, 20)), Quaternion.identity);
             Debug.Log(score);
             amountOfZombies++;
-            Debug.Log("LevelManager ejecutó el método SpawnZombie, el cual pudo o no ser llamado por evento");
             }
     }
     public void OutOfPlayZone()
@@ -75,7 +99,7 @@ public class LevelManager : MonoBehaviour
         if (!GameManager.paused)
         {
             OutUI();
-            outTime -= Time.deltaTime;                          //estaba haciendo esto xd
+            outTime -= Time.deltaTime;
             playerIsOut = true;
             if (outTime <= 0)
             {
@@ -86,6 +110,12 @@ public class LevelManager : MonoBehaviour
             outTimer.text = i.ToString();
         }
     }
+    
+    public void RestartLimitTime()
+    {
+        limitTime = startingLimitTime;
+        timeOut = false;
+    }
 
     void OutUI()
     {
@@ -93,6 +123,7 @@ public class LevelManager : MonoBehaviour
         outTimer.gameObject.SetActive(true);
         deadText.SetActive(false);
         pauseMenu.SetActive(false);
+        timeOutMenu.SetActive(false);
     }
     void PausedUI()
     {
@@ -107,6 +138,7 @@ public class LevelManager : MonoBehaviour
         deadText.SetActive(true);
         pauseMenu.SetActive(false);
         outTimer.gameObject.SetActive(false);
+        MouseView.canControl = false;
     }
     public void AliveUI()
     {
@@ -114,6 +146,18 @@ public class LevelManager : MonoBehaviour
         deadText.SetActive(false);
         pauseMenu.SetActive(false);
         outTimer.gameObject.SetActive(false);
+        MouseView.canControl = true;
+        timeOutMenu.SetActive(false);
+    }
+    public void TimeOverUI()
+    {
+        crosshair.gameObject.SetActive(false);
+        deadText.SetActive(false);
+        pauseMenu.SetActive(false);
+        outTimer.gameObject.SetActive(false);
+        timeOutMenu.SetActive(true);
+        scoreOnOutScreen.text = score.ToString();
+        MouseView.canControl = false;
     }
 }
 

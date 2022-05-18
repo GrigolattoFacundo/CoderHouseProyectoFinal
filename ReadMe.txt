@@ -1,11 +1,25 @@
-la idea que tengo de este proyecto es un fps con un título como "te dije que apuntes a la cabeza" o algo por el estilo.
-los enemigos (zombies cabezones para darle más sentido y hacerlo más fácil) mueren de un solo tiro a la cabeza pero no reciben daño al cuerpo, esa es la gracia de mi idea xd
-por eso en vez de darles un valor de vida les dí un bool ("alive"), al recibir un tiro en el cuerpo el bool no se vé afectado, pero en la cabeza se vuelve false.
-la escena es muy básica pero estuve toda la semana resolviendo problemas del código, y me gustaría en una futura entrega hacer que los zombies spawneen cada cierto tiempo o por oleadas
-(no lo hice ahora porque estoy seguro de que va a romper el código del sistema de disparo), a demás de agregar algunos mapas.
+ENGLISH
 
-el fps controller que se vé lo hice yo, con mucha ayuda de tutoriales obviamente y el código es un desastre pero funciona (aunque tiene un bug que mira al suelo al darle play a la escena xd).
-unity dejó de tomarme los inputs en más de una ocasión y tuve que reiniciar.
+"I told you to aim for the head" is an aim practice fps without life bars, enemies will only die from headshots and any damage will kill you.
 
-todavía no toqué tema luces pero probablemente le dé una linterna al jugador y haga del ambiente algo bastante más oscuro, eso al desarrollar las escenas, una vez que tenga solucionado el tema
-del spawn aleatorio sin que me rompa más código. si es necesario para la consigna espero aviso y lo corrijo.
+it still being in an early developing phase, but it's already playable, the goal is killing as much enemies as posible within the time limit (each 10 enemies killed, one more will spawn).
+I plan to add a limitless gamemode and a wave based one and add different scenes and dificulties.
+
+I also need to change almos all my assets in order to publish the game some day if I want to, because of study limited licenses.
+this was the first software I've ever developed and I did it alone. Of course with a lot of help and tutorials, so I learnt a lot.
+any positive or negative constructive feedback is welcome.
+
+ty <3
+
+ESPAÑOL
+
+"I told you to aim for the Head" es un fps de práctica de puntería sin barras de vida, los enemigos solo se mueren de tiros a la cabeza, y cualquier daño te mata.
+
+sigue en una etapa de desarrollo muy temprana, pero ya es jugable, el objetivo es matar tantos enemigos como sea posible dentro del tiempo límite (cada 10 enemigos muertos uno más va a spawnear).
+planeo agregar un modo de juego sin límites y uno basado en oleadas, diferentes escenas y dificultades.
+
+también necesito cambiar casi todos mis assets si quiero publicarlo algún día, debido a las licencias limitadas a estudio.
+este es el primer software que desarrollo y lo hice solo. Por supuesto con mucha ayuda y tutoriales, aprendí muchísimo.
+cualquier feedback positivo o negativo constructivo es bienvenido.
+
+gracias <3

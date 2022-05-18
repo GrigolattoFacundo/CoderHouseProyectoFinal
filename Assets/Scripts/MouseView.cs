@@ -10,9 +10,25 @@ public class MouseView : MonoBehaviour
     public float sensitivity = 200f;
     private float mouseX;
     private float mouseY;
-        
+    public static bool canControl;
+
+    private void Start()
+    {
+        canControl = true;
+    }
 
     void Update()
+    {
+        if (canControl)
+        {
+            CanControl();
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+    void CanControl()
     {
         mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
         mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
@@ -21,21 +37,19 @@ public class MouseView : MonoBehaviour
         cameraRotation = Mathf.Clamp(cameraRotation, -90f, 90f);
         transform.localRotation = Quaternion.Euler(cameraRotation, 0, 0);
 
-        
-            if (GameManager.paused)
-            {
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else if (LevelManager.playerIsDead)
-            {
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-        
-        
+
+        if (GameManager.paused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else if (LevelManager.playerIsDead)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
     private void OnDestroy()
     {
