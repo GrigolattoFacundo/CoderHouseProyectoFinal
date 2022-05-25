@@ -14,17 +14,19 @@ public class LevelManager : MonoBehaviour
     public bool paused;
 
     public Image crosshair;
-    public GameObject deadText;
+    public GameObject deadMenu;
     public GameObject pauseMenu;
     public GameObject timeOutMenu;
     public float startingLimitTime;
     private bool timeOut;
+    private bool died;
 
     public static int score;
     public float outTime;
     private float limitTime;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI scoreOnOutScreen;
+    public TextMeshProUGUI scoreOnDeadScreen;
     public TextMeshProUGUI outTimer;
     public TextMeshProUGUI limitTimeText;
 
@@ -32,6 +34,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         timeOut = false;
+        died = false;
         amountOfZombies = 0;
         maxAmountOfZombies = 3;
         GameManager.paused = false;
@@ -61,9 +64,15 @@ public class LevelManager : MonoBehaviour
             TimeOverUI();
             return;
         }
-        if (playerIsDead)
+        if (died)
         {
             DeadUI();
+            return;
+        }
+        if (playerIsDead)
+        {
+            Time.timeScale = 0;
+            died = true;
             return;
         }
         if (GameManager.paused)
@@ -90,7 +99,6 @@ public class LevelManager : MonoBehaviour
         if (amountOfZombies < maxAmountOfZombies)
             {
             Instantiate(zombie, new Vector3(UnityEngine.Random.Range(-20, 20), 1, UnityEngine.Random.Range(-20, 20)), Quaternion.identity);
-            Debug.Log(score);
             amountOfZombies++;
             }
     }
@@ -121,29 +129,32 @@ public class LevelManager : MonoBehaviour
     {
         crosshair.gameObject.SetActive(false);
         outTimer.gameObject.SetActive(true);
-        deadText.SetActive(false);
+        deadMenu.SetActive(false);
         pauseMenu.SetActive(false);
         timeOutMenu.SetActive(false);
     }
     void PausedUI()
     {
         crosshair.gameObject.SetActive(false);
-        deadText.SetActive(false);
+        deadMenu.SetActive(false);
         pauseMenu.SetActive(true);
         outTimer.gameObject.SetActive(false);
     }
     void DeadUI()
     {
         crosshair.gameObject.SetActive(false);
-        deadText.SetActive(true);
+        deadMenu.SetActive(true);
         pauseMenu.SetActive(false);
         outTimer.gameObject.SetActive(false);
         MouseView.canControl = false;
+        scoreOnDeadScreen.text = score.ToString();
+        died = false;
+        playerIsDead = false;
     }
     public void AliveUI()
     {
         crosshair.gameObject.SetActive(true);
-        deadText.SetActive(false);
+        deadMenu.SetActive(false);
         pauseMenu.SetActive(false);
         outTimer.gameObject.SetActive(false);
         MouseView.canControl = true;
@@ -152,7 +163,7 @@ public class LevelManager : MonoBehaviour
     public void TimeOverUI()
     {
         crosshair.gameObject.SetActive(false);
-        deadText.SetActive(false);
+        deadMenu.SetActive(false);
         pauseMenu.SetActive(false);
         outTimer.gameObject.SetActive(false);
         timeOutMenu.SetActive(true);

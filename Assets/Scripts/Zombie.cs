@@ -1,10 +1,8 @@
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Zombie : LevelManager
 {
+    public AudioSource audioSource;
     public float distanceToPlayer;
     private float speed;
     private float timeToEscape;
@@ -16,7 +14,7 @@ public class Zombie : LevelManager
     private Vector3 fallSpeed;
     public LayerMask floorMask;
     private Animator animator;
-    public GameManager manager;
+    private GameManager manager;
     public PlayerController playerScript;
     public GameObject rayPoint;
     public Transform floorCol;
@@ -50,7 +48,9 @@ public class Zombie : LevelManager
     }
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player");
+        manager = FindObjectOfType<GameManager>();
         animator = GetComponent<Animator>();
         animator.SetBool("isClose", false);
         alive = true;
@@ -79,15 +79,22 @@ public class Zombie : LevelManager
         }
         else if (!alive)
         {
+            alive = audioSource.mute;
             animator.SetBool("alive", false);
             Destroy(gameObject, 2);
             
             if (!sd)
             {
                 LevelManager.amountOfZombies--;
+                LevelManager.score++;
                 sd = true;
             }
         }
+    }
+
+    public void Footstep()
+    {
+        manager.PlaySound("footstep");
     }
     
     void Movement()
