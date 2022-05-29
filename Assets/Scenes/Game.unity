@@ -22711,7 +22711,7 @@ MonoBehaviour:
   deadMenu: {fileID: 106722189}
   pauseMenu: {fileID: 446910105}
   timeOutMenu: {fileID: 1790602696}
-  startingLimitTime: 10
+  startingLimitTime: 120
   outTime: 5
   scoreText: {fileID: 512317555}
   scoreOnOutScreen: {fileID: 1770849264}
